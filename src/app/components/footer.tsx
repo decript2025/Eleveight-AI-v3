@@ -48,7 +48,7 @@ export default function Footer() {
   return (
     <footer className="w-full bg-background text-foreground py-12">
       {/* Main Footer Content */}
-      <div className="grid grid-cols-[auto_1fr_auto] gap-12">
+      <div className="grid grid-cols-1 justify-items-center sm:grid-cols-[auto_1fr_auto] sm:justify-items-start gap-12">
         {/* Logo and Social Section */}
         <div className=" flex flex-col items-start gap-3">
           <Image src="/logo.svg" alt="Eleveight" width={153} height={36} />
@@ -98,12 +98,12 @@ export default function Footer() {
         </div>
 
         {/* Request Demo Button Section */}
-        <div className="flex flex-col items-end gap-6">
+        <div className="flex flex-col items-center sm:items-end gap-6">
           <Button variant="default" size="lg">
             Request demo
           </Button>
 
-          <div className="flex flex-col items-end gap-1">
+          <div className="flex flex-row items-center justify-center gap-2">
             <Link href="#top" className="text-sm text-[#F5F5F5BF] hover:text-primary transition-colors">
                 ↑ On top
             </Link>

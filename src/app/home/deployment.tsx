@@ -54,7 +54,7 @@ export function Deployment() {
           <h2 className="text-primary text-h2 mb-2">
             Four ways to deploy with Eleveight
           </h2>
-          <p className="text-foreground font-normal text-[20px]/[32px]">
+          <p className="text-foreground font-normal sm:text-[20px]/[32px] text-[16px]/[22px]">
             Choose the operating model that matches your performance, control, and compliance requirements.
           </p>
         </div>
@@ -62,7 +62,7 @@ export function Deployment() {
         <div className="p-2 [box-shadow:0_-10px_18px_-3px_#EA580C]"> </div>
 
         {/* Deployment Options Grid */}
-        <div className="grid grid-cols-1 px-8 pt-4 pb-6 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 px-4 sm:px-8 pt-4 pb-6 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {deploymentOptions.map((option, index) => (
             <Card 
               key={index} 

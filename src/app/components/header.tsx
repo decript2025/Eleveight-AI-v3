@@ -65,7 +65,7 @@ export default function Header() {
                 </HoverCardTrigger>
                 <HoverCardContent className="w-64 bg-background/90 rounded-b-[16px] p-2 overflow-hidden" align="start" sideOffset={15}>
                   {[
-                    { href: '/platform/overview', label: 'Platform Overview' },
+                    { href: '/platform', label: 'Platform Overview' },
                     { href: '/platform/security', label: 'Security and Compliance' },
                     { href: '/platform/regions', label: 'Regions and sustainability' },
                     { href: '/platform/status', label: 'Service status' },
@@ -223,11 +223,11 @@ export default function Header() {
             {isMobilePlatformOpen && (
               <div className="flex flex-col mt-1">
                 {[
-                  { href: '/platform/overview', label: 'Platform Overview' },
+                  { href: '/platform', label: 'Platform Overview' },
                   { href: '/platform/security', label: 'Security and Compliance' },
                   { href: '/platform/regions', label: 'Regions and sustainability' },
                   { href: '/platform/status', label: 'Service status' },
-                  { href: '/store', label: 'Eleveight store' },
+                  { href: '/platform/store', label: 'Eleveight store' },
                 ].map((item) => (
                   <Link
                     key={item.href}

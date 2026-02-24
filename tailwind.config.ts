@@ -5,16 +5,25 @@ export default {
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
+	screens: {
+		'sm': '500px',
+	  'md': '768px',
+	  'lg': '1024px',
+	  'xl': '1280px',
+	  '2xl': '1536px',
+	},
   	container: {
-  		center: true,
-  		screens: {
-  			'2xl': '1400px'
-  		}
+  		center: true
   	},
   	extend: {
 		fontSize: {
-			h2: ['clamp(32px, 3vw, 48px)', {
-			  lineHeight: 'clamp(32px, 3vw, 48px)',
+			h1: ['clamp(32px, 3vw, 48px)', {
+				lineHeight: 'clamp(32px, 3vw, 48px)',
+				letterSpacing: '0',
+				fontWeight: '600',
+			}],
+			h2: ['clamp(24px, 3vw, 48px)', {
+			  lineHeight: 'clamp(28px, 3vw, 48px)',
 			  letterSpacing: '0',
 			  fontWeight: '600',
 			}],

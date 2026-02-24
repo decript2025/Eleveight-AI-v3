@@ -9,7 +9,6 @@ import { Purpose } from "./home/purpose";
 import { ViewPricing } from "./home/view-pricing";
 
 
-
 export default function Home() {
   return (
     <div id="top">

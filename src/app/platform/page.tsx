@@ -1,7 +1,10 @@
+import { PlatformHero } from "./hero";
+
 export default function Platform() {
   return (
     <div>
-      <h1>Platform</h1>
+      <PlatformHero />
+      <h1>Platform Overview</h1>
     </div>
   );
 }

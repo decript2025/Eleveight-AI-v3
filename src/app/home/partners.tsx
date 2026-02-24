@@ -22,7 +22,7 @@ export function Partners() {
 
   return (
     <div className="mt-[8px] mb-[10px]">      
-      <div className="overflow-hidden whitespace-nowrap mx-auto text-center">
+      <div className="overflow-hidden whitespace-nowrap mx-auto text-center opacity-50">
         <div className="inline-flex items-center animate-[slide_10s_linear_infinite] gap-[22px]">
           {duplicatedPartners.map((img, index) => (
             <div
