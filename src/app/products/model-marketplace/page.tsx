@@ -2,6 +2,8 @@ import Image from 'next/image';
 import { FeatureCards } from '../feature-cards';
 import { GetStarted } from 'app/home/get-started';
 import { ViewPricing } from 'app/home/view-pricing';
+import { Badge } from 'app/components/badge';
+import { Tag } from 'app/components/tag';
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -194,21 +196,14 @@ export default function ModelMarketplace() {
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="text-background font-semibold text-xl/8">{model.name}</h3>
                   {model.isNew && (
-                    <span className="shrink-0 text-[10px] font-semibold bg-[#007A29] text-foreground px-2 py-0.5 rounded-full">
-                      New
-                    </span>
+                    <Badge text="New" />
                   )}
                 </div>
                 <p className="text-green-600 text-sm font-mono font-medium">{model.category}</p>
                 <p className="text-background text-sm grow">{model.desc}</p>
                 <div className="flex flex-wrap gap-2 mt-auto">
                   {model.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[10px] text-ashen border border-primary/10 rounded-full px-2 py-0.5"
-                    >
-                      {tag}
-                    </span>
+                    <Tag tag={tag} key={tag} />
                   ))}
                 </div>
               </div>
