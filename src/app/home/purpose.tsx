@@ -6,7 +6,7 @@ import Image from "next/image";
 export function Purpose() {
   const purposeCards = [
     {
-      image: "/home/purpose/qualified-users.jpg",
+      image: "/home/purpose/qualified-users.webp",
       title: "For qualified users",
       tagline: "Power without noise.",
       description: "Clean, direct access to compute, without marketplace chaos.",
@@ -18,7 +18,7 @@ export function Purpose() {
       ]
     },
     {
-      image: "/home/purpose/startups.jpg",
+      image: "/home/purpose/startups.webp",
       title: "For startups and product teams",
       tagline: "Engineered for speed.",
       description: "Launch training and inference fast, without building infrastructure first.",
@@ -30,7 +30,7 @@ export function Purpose() {
       ]
     },
     {
-      image: "/home/purpose/enterprise.jpg",
+      image: "/home/purpose/enterprise.webp",
       title: "For enterprise",
       tagline: "Infrastructure that survives audits.",
       description: "Security and transparency are built into the core.",

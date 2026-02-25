@@ -43,6 +43,7 @@ export default {
   				DEFAULT: 'hsl(var(--primary))',
   				foreground: 'hsl(var(--primary-foreground))'
   			},
+			ashen: 'hsl(var(--ashen))',
 			shadow: {
 				box: 'var(--primary-shadow)',
 			}
