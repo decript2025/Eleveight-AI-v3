@@ -79,7 +79,7 @@ export function Purpose() {
               </h3>
 
               {/* Tagline */}
-              <p className="text-[#009933] font-semibold mb-3 text-[14px]/[20px]">
+              <p className="text-primaryGreen font-semibold mb-3 text-[14px]/[20px]">
                 {card.tagline}
               </p>
 

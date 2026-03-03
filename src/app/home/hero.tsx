@@ -5,7 +5,7 @@ export function Hero() {
   return (
     <div className="bg-[url(public/home/hero.jpg)] md:h-[376px] sm:h-[472px] h-[600px] bg-[80%_50%] [background-size:310%] sm:[background-size:230%] md:[background-size:142%] bg-no-repeat rounded-[32px]">
       <div className="flex flex-col justify-center items-center p-10 xl:px-60 lg:px-[10vw] px-4 gap-5 sm:gap-[6vw] md:gap-8">
-        <span className="text-foreground font-normal border border-[#17a245] rounded-[99px] py-1 px-2 sm:px-4 bg-[#009933] text-[10px]/[14px] sm:text-[12px]/[16px]">
+        <span className="text-foreground font-normal border border-primaryGreen rounded-[99px] py-1 px-2 sm:px-4 bg-primaryGreen text-[10px]/[14px] sm:text-[12px]/[16px]">
           NVIDIA B300 clusters available in Armenia
         </span>
 

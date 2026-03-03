@@ -6,7 +6,8 @@
   :root {
     --background: 0 0% 2%;
     --foreground: 240 7% 95%;
-    --primary: 21 90% 48%;
+    --primary: 20 95% 44%;
+    --primary-green: 140 100% 24%;
     --ashen: 32, 6%, 49%, 1;
 
     --primary-shadow: 0px 0px 32px 0px hsl(var(--primary));
@@ -29,6 +30,6 @@ body {
 
 .dual-gradient:hover {
   background: 
-    linear-gradient(#de5d10, #009933) padding-box, 
+    linear-gradient(hsl(var(--primary)), hsl(var(--primary-green))) padding-box, 
     linear-gradient(to bottom, #b99682, #27673b) border-box;
 }

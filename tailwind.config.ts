@@ -44,6 +44,7 @@ export default {
   				foreground: 'hsl(var(--primary-foreground))'
   			},
 			ashen: 'hsl(var(--ashen))',
+			primaryGreen: 'hsl(var(--primary-green))',
 			shadow: {
 				box: 'var(--primary-shadow)',
 			}
