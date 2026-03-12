@@ -8,6 +8,7 @@ export default {
 	screens: {
 	  'sm': '420px',
 	  'md': '768px',
+	  'md-lg': '900px',
 	  'lg': '1024px',
 	  'xl': '1280px',
 	  '2xl': '1536px',
@@ -21,37 +22,13 @@ export default {
 				lineHeight: 'clamp(42px, 5vw, 64px)',
 				letterSpacing: '0',
 				fontWeight: '600',
-			}],
-			h2: ['clamp(24px, 3vw, 48px)', {
-			  lineHeight: 'clamp(28px, 3vw, 48px)',
-			  letterSpacing: '0',
-			  fontWeight: '600',
-			}],
-			h5: ['14px', {
-				lineHeight: '20px',
-				letterSpacing: '0',
-				fontWeight: '600',
-			  }],
+			}]
 		},
   		colors: {
-  			border: 'hsl(var(--border))',
-  			input: 'hsl(var(--input))',
-  			ring: 'hsl(var(--ring))',
-  			background: 'hsl(var(--background))',
-  			foreground: 'hsl(var(--foreground))',
-  			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
-  				foreground: 'hsl(var(--primary-foreground))'
-  			},
-			ashen: 'hsl(var(--ashen))',
-			primaryGreen: 'hsl(var(--primary-green))',
-			shadow: {
-				box: 'var(--primary-shadow)',
-			}
+			foreground: 'rgba(43, 43, 43, 1)',
+  			primary: 'rgba(255, 255, 255, 1)',
+			primaryGreen: 'rgba(170, 255, 0, 1)',
   		},
-		boxShadow: {
-			main: 'var(--primary-shadow)',
-		},
   		keyframes: {
   			slide: {
   				'0%': {

@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Noto_Sans } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import Header from "./components/header";
-import Footer from "./components/footer";
+import Header from "./core/header";
+import Footer from "./core/footer";
 
 const noto_sans = Noto_Sans({
   variable: '--font-noto-sans',
@@ -106,10 +106,10 @@ export default function RootLayout({
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         
-        <div className="flex flex-col min-h-screen mx-0 sm:mx-[32px] 2xl:mx-[96px] md:mx-[64px]">
+        <div className="flex flex-col min-h-screen">
           <Header />
 
-          <main className="grow mt-[65px] rounded-[32px]">
+          <main className="grow bg-primary">
             {children}
           </main>
 

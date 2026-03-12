@@ -10,10 +10,10 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-[#EA580C] text-foreground shadow-[0_0_8px_0_#EA580C] hover:shadow-[0_0_16px_0_#EA580C] border border-[#F9731600] dual-gradient duration-0",
-        outline:
-          "bg-foreground shadow-[0_0_8px_0_#EA580C] text-[#EA580C] hover:shadow-[0_0_16px_0_#EA580C]",
-        link: "text-foreground hover:text-primary",
+          "bg-primaryGreen text-foreground",
+        // outline:
+        //   "bg-foreground shadow-[0_0_8px_0_#EA580C] text-[#EA580C] hover:shadow-[0_0_16px_0_#EA580C]",
+        // link: "text-foreground hover:text-primary",
       },
       size: {
         default: "h-9 px-4",

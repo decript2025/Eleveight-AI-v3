@@ -2,18 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 0 0% 2%;
-    --foreground: 240 7% 95%;
-    --primary: 20 95% 44%;
-    --primary-green: 140 100% 24%;
-    --ashen: 32, 6%, 49%, 1;
-
-    --primary-shadow: 0px 0px 32px 0px hsl(var(--primary));
-  }
-}
-
 html {
   scroll-behavior: smooth;
 }
@@ -23,13 +11,6 @@ body {
   color: hsl(var(--foreground));
 
   main {
-    background-image: url('public/home/dot_grid.png');
-    background-color: hsl(var(--foreground));
+    background-color: hsl(var(--background));
   }
-}
-
-.dual-gradient:hover {
-  background: 
-    linear-gradient(hsl(var(--primary)), hsl(var(--primary-green))) padding-box, 
-    linear-gradient(to bottom, #b99682, #27673b) border-box;
 }

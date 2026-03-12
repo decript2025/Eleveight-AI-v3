@@ -1,4 +1,4 @@
-export default async function Company() {
+export default async function Contacts() {
 
   const data = await fetch('https://console.eleveight.ai/api/articles');
   const posts = await data.json()
