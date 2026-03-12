@@ -1,6 +1,7 @@
 'use client' // Error boundaries must be Client Components
 
 import { useEffect } from 'react';
+import { Button } from 'ui/components/ui/button';
 
 export default function Error({
   error,
@@ -24,12 +25,12 @@ export default function Error({
           An unexpected error occurred. Please try again or contact support if the problem persists.
         </p>
       </div>
-      <button
+      <Button
+        variant="secondary"
         onClick={() => reset()}
-        className="inline-flex h-10 items-center justify-center rounded-md bg-blue-600 px-8 text-sm font-medium text-white shadow transition-colors hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue-700 disabled:pointer-events-none disabled:opacity-50"
       >
         Try again
-      </button>
+      </Button>
     </div>
   )
 }

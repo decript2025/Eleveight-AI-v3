@@ -109,7 +109,7 @@ export default function RootLayout({
         <div className="flex flex-col min-h-screen">
           <Header />
 
-          <main className="grow bg-primary">
+          <main className="grow bg-primary mt-[65px]">
             {children}
           </main>
 

@@ -35,6 +35,7 @@ export function Partners() {
                 width={95}
                 height={76}
                 className="h-[76px] object-contain"
+                unoptimized
               />
             </div>
           ))}

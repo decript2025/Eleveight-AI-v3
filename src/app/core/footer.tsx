@@ -46,7 +46,7 @@ export default function Footer() {
   const currYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-background text-foreground py-12">
+    <footer className="w-full bg-foreground text-primary py-12">
       {/* Main Footer Content */}
       <div className="grid grid-cols-1 justify-items-center sm:grid-cols-[auto_1fr_auto] sm:justify-items-start gap-8 sm:gap-12">
         {/* Logo and Social Section */}
@@ -104,9 +104,6 @@ export default function Footer() {
           </Button>
 
           <div className="flex flex-row items-center justify-center gap-2">
-            <Link href="#top" className="text-sm text-[#F5F5F5BF] hover:text-primary transition-colors">
-                ↑ On top
-            </Link>
             <div className="text-sm text-[#F5F5F5BF]">
               © {currYear}
             </div>

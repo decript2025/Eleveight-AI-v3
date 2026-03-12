@@ -1,73 +1,140 @@
-import { Card, CardContent } from "ui/components/ui/card";
 import Image from "next/image";
+import { Button } from "ui/components/ui/button";
 
-export function Features() {
-  const features = [
-    {
-      imgSrc: "/home/features/predictable-throughput.svg",
-      alt: "Predictable Throughput at Scale",
-      title: "Predictable Throughput at Scale",
-      description: "Reference-class architecture designed to eliminate network and interconnect bottlenecks. Tier II design principles at the data center level. 200 Gbit-class networking without reselling the same capacity across multiple customers.",
-    },
-    {
-      imgSrc: "/home/features/from-experiments-to-production.svg",
-      alt: "From Experiments to Production",
-      title: "From Experiments to Production, Fully Operational",
-      description: "Enterprise-grade MLOps delivered as a service, plus proprietary capabilities to improve quality and reduce cost through granular resource accounting across datasets. Tools for experiments, pipelines, versioning, and collaboration.",
-    },
-    {
-      imgSrc: "/home/features/engineer-to-engineer-support.svg",
-      alt: "Engineer-to-Engineer",
-      title: "Engineer-to-Engineer Support That Prevents Downtime",
-      description: "Engineer-to-engineer operations, not scripts and ticket ping-pong. Proactive diagnostics – anomaly detection and outreach before issues turn into downtime.",
-    },
-    {
-      imgSrc: "/home/features/alternative-to-cloud-chaos.svg",
-      alt: "The Calm Alternative to Cloud Chaos",
-      title: "The Calm Alternative to Cloud Chaos",
-      description: "A distraction-free platform for high-stakes compute and experimentation – built for teams that outgrow marketplace chaos and reject the bureaucracy and opacity of hyperscalers.",
-    },
-    {
-      imgSrc: "/home/features/real-metrics.svg",
-      alt: "Real Metrics",
-      title: "Real Metrics. Real Accountability.",
-      description: "Real dashboards with real signals – latency, packet loss, and system health, not just \"up or down.\" Financial accountability – service credits when the SLA is not met.",
-    },
-    {
-      imgSrc: "/home/features/low-latency.svg",
-      alt: "Low Latency",
-      title: "Low Latency Where It Matters",
-      description: "Strategic presence in Armenia and Kazakhstan – low-latency advantages for Central and East Asia and parts of Europe.",
-    }
-  ];
+const features = [
+  {
+    title: "Pure Metal",
+    bullets: [
+      "Dedicated next-gen servers with no noisy neighbors",
+      "You control the software stack",
+      "We own infrastructure reliability end to end",
+      "You control the software stack",
+    ],
+    imgSrc: "/home/features/pure-metal.webp",
+    alt: "Pure Metal",
+    bg: "bg-[linear-gradient(180deg,_#D8EBFF_0%,_#A8FFCF_80%)]",
+    imageRight: true,
+    imageShape: "default" as const,
+  },
+  {
+    title: "Growth Fabric",
+    bullets: [
+      "AI Cloud for training and inference with clear instance classes",
+      "Consumption-based pricing aligned to actual usage",
+      "Kubernetes as a service",
+      "MLOps delivered as a platform",
+    ],
+    imgSrc: "/home/features/growth-fabric.webp",
+    alt: "Growth Fabric",
+    bg: "bg-[linear-gradient(180deg,_#A8FFCF_0%,_#FFF4DF_80%)]",
+    imageRight: false,
+    imageShape: "diamond" as const,
+  },
+  {
+    title: "Private Compute",
+    bullets: [
+      "Physically isolated racks or dedicated machine halls",
+      "Custom network design for your traffic patterns",
+      "Integration with corporate security controls",
+      "Tailored SLA and operating procedures",
+    ],
+    imgSrc: "/home/features/private-compute.webp",
+    alt: "Private Compute",
+    bg: "bg-[linear-gradient(180deg,_#F0E2FF_0%,_#FFF4DF_80%)]",
+    imageRight: true,
+    imageShape: "circle" as const,
+  },
+  {
+    title: "Model Marketplace",
+    bullets: [
+      "AI Cloud for training and inference with clear instance classes",
+      "Consumption-based pricing aligned to actual usage",
+      "Kubernetes as a service",
+      "MLOps delivered as a platform",
+    ],
+    imgSrc: "/home/features/model-marketplace.webp",
+    alt: "Model Marketplace",
+    bg: "bg-[linear-gradient(180deg,_#F0E2FF_0%,_#FFF4DF_80%)]",
+    imageRight: false,
+    imageShape: "triangle" as const,
+  },
+];
+
+type ImageShape = "default" | "diamond" | "circle" | "triangle";
+
+function FeatureImage({ src, alt, shape }: { src: string; alt: string; shape: ImageShape }) {
+  if (shape === "diamond") {
+    return (
+      <div className="relative w-56 h-56 shrink-0">
+        <div className="absolute inset-0 rotate-45 rounded-2xl overflow-hidden">
+          <div className="absolute inset-0 -rotate-45 scale-[1.42] flex items-center justify-center">
+            <Image src={src} alt={alt} fill className="object-cover" unoptimized/>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (shape === "circle") {
+    return (
+      <div className="relative w-60 h-60 shrink-0 rounded-full overflow-hidden">
+        <Image src={src} alt={alt} fill className="object-cover" unoptimized/>
+      </div>
+    );
+  }
+
+  if (shape === "triangle") {
+    return (
+      <div
+        className="relative w-60 h-60 shrink-0 overflow-hidden"
+        style={{ clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)" }}
+      >
+        <Image src={src} alt={alt} fill className="object-cover" unoptimized/>
+      </div>
+    );
+  }
 
   return (
-    <section className="m-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {features.map((feature, index) => (
-          <Card
-            key={index}
-            className={`bg-background ${index === 2 || index === 5 ? 'md:col-span-full lg:col-span-1' : ''}`}
-          >
-            <CardContent className="p-6 pt-4">
-              {/* Icon */}
-              <div className="flex justify-end mb-2">
-                <Image src={feature.imgSrc} alt={feature.alt} width={48} height={48} />
-              </div>
+    <div className="relative w-72 h-52 shrink-0 rounded-2xl overflow-hidden">
+      <Image src={src} alt={alt} fill className="object-cover" unoptimized />
+    </div>
+  );
+}
 
-              {/* Title */}
-              <h3 className="text-white text-xl font-bold mb-3 leading-tight">
-                {feature.title}
-              </h3>
+export function Features() {
+  return (
+    <section className="flex flex-col gap-4 px-4 py-6">
+      {features.map((feature, index) => (
+        <div
+          key={index}
+          className={`${feature.bg} rounded-3xl flex flex-col md:flex-row items-center gap-8 px-10 py-8 overflow-hidden`}
+        >
+          {!feature.imageRight && (
+            <div className="flex justify-center md:w-1/2">
+              <FeatureImage src={feature.imgSrc} alt={feature.alt} shape={feature.imageShape} />
+            </div>
+          )}
 
-              {/* Description */}
-              <p className="text-gray-400 text-sm leading-relaxed">
-                {feature.description}
-              </p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+          <div className="flex flex-col gap-4 md:w-1/2">
+            <h3 className="text-2xl font-bold text-foreground">{feature.title}</h3>
+            <ul className="flex flex-col gap-2">
+              {feature.bullets.map((bullet, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-foreground">
+                  <span className="mt-0.5 shrink-0">✓</span>
+                  <span>{bullet}</span>
+                </li>
+              ))}
+            </ul>
+            <Button variant="secondary" className="w-fit mt-2">Launch GPU instance</Button>
+          </div>
+
+          {feature.imageRight && (
+            <div className="flex justify-center md:w-1/2">
+              <FeatureImage src={feature.imgSrc} alt={feature.alt} shape={feature.imageShape} />
+            </div>
+          )}
+        </div>
+      ))}
     </section>
   );
 }
