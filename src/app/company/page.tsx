@@ -1,14 +1,7 @@
 export default async function Company() {
-
-  const data = await fetch('https://console.eleveight.ai/api/articles');
-  const posts = await data.json()
-  console.log(posts)
-
   return (
     <div>
-      {posts.data.map((item: any) => (
-        <span key="item.id">{item.title}</span>
-      ))}
+      company page
     </div>
 
   );
