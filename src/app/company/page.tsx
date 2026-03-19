@@ -1,138 +1,75 @@
 import Image from "next/image";
+import { createServerApiClient } from "ui/lib/api-client";
 
 const values = [
   {
     title: "Innovation",
     description:
       "We pioneer advancements in AI infrastructure and data technologies, constantly exploring new ways to accelerate the future of artificial intelligence.",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M13 2L4.5 12.5H11L9 20L17.5 9.5H11L13 2Z" />
-      </svg>
-    ),
+    icon: '/company/our values/sparkles.svg',
   },
   {
     title: "Accessibility",
     description:
       "We make cutting-edge computing power and AI resources available to innovators and enterprises of all sizes — fostering equal opportunity in the global tech ecosystem.",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="11" cy="5" r="2" />
-        <path d="M5 10h12M8 10l-1 7M14 10l1 7M11 10v7" />
-      </svg>
-    ),
+    icon: '/company/our values/user group.svg',
   },
   {
     title: "Excellence",
     description:
       "We deliver uncompromising quality across every layer of our work — from engineering and data center operations to customer experience and research partnerships.",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="3,15 8,9 12,12 19,5" />
-        <polyline points="15,5 19,5 19,9" />
-      </svg>
-    ),
+    icon: '/company/our values/trending up.svg',
   },
 ];
 
-const team = [
-  {
-    name: "Arman L. Aleksanian",
-    role: "CEO, Board Member",
-    initials: "AA",
-    linkedin: "https://linkedin.com",
-    photo: null,
-  },
-  {
-    name: "Arut Pogosyan",
-    role: "Board Member",
-    initials: "AP",
-    linkedin: "https://linkedin.com",
-    photo: null,
-  },
-  {
-    name: "Davit Abovyan",
-    role: "Board Member",
-    initials: "DA",
-    linkedin: "https://linkedin.com",
-    photo: null,
-  },
-  {
-    name: "Arman Jilavian",
-    role: "Board Member",
-    initials: "AJ",
-    linkedin: "https://linkedin.com",
-    photo: null,
-  },
-  {
-    name: "Davit Arakelyan",
-    role: "CEO",
-    initials: "DA",
-    linkedin: "https://linkedin.com",
-    photo: null,
-  },
-  {
-    name: "Sergey Petrosyan",
-    role: "CTO",
-    initials: "SP",
-    linkedin: "https://linkedin.com",
-    photo: null,
-  },
-  {
-    name: "Artur Petrosyan",
-    role: "CLO",
-    initials: "AP",
-    linkedin: "https://linkedin.com",
-    photo: null,
-  },
-  {
-    name: "Name Surname",
-    role: "CLO",
-    initials: "NS",
-    linkedin: "https://linkedin.com",
-    photo: null,
-  },
-  {
-    name: "Al Eisaian",
-    role: "Ambassador — North America",
-    initials: "AE",
-    linkedin: "https://linkedin.com",
-    photo: null,
-  },
-  {
-    name: "Tigran Pogosyan",
-    role: "Ambassador — East Asia",
-    initials: "TP",
-    linkedin: "https://linkedin.com",
-    photo: null,
-  },
-  {
-    name: "Grant R. Pogosyan",
-    role: "Scientific Advisor",
-    initials: "GP",
-    linkedin: "https://linkedin.com",
-    photo: null,
-  },
-  {
-    name: "Hrant Khachatryan",
-    role: "Scientific Advisor",
-    initials: "HK",
-    linkedin: "https://linkedin.com",
-    photo: null,
-  },
-];
+
+
+interface TeamMember {
+  id: number;
+  linkedin: string | null;
+  Fullname: string;
+  Position: string;
+  Bio?: string;
+  Image?: {
+    url: string;
+  };
+  Order: number;
+  createdAt: string;
+  documentId: string;
+  publishedAt: string | null;
+  updatedAt: string;
+}
+
+interface TeamsResponse {
+  data: TeamMember[];
+}
 
 function LinkedInIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-      <path d="M3.6 2C3.6 2.88 2.88 3.6 2 3.6S.4 2.88.4 2 1.12.4 2 .4 3.6 1.12 3.6 2ZM.5 5h3v9.5h-3V5ZM5.5 5h2.9v1.3h.04C8.9 5.7 10 5 11.4 5c3.1 0 3.6 2 3.6 4.7v4.8h-3v-4.2c0-1 0-2.4-1.4-2.4-1.5 0-1.7 1.1-1.7 2.3v4.3H5.5V5Z" />
+    <svg className="mt-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M22.2283 0H1.77167C1.30179 0 0.851161 0.186657 0.518909 0.518909C0.186657 0.851161 0 1.30179 0 1.77167V22.2283C0 22.6982 0.186657 23.1488 0.518909 23.4811C0.851161 23.8133 1.30179 24 1.77167 24H22.2283C22.6982 24 23.1488 23.8133 23.4811 23.4811C23.8133 23.1488 24 22.6982 24 22.2283V1.77167C24 1.30179 23.8133 0.851161 23.4811 0.518909C23.1488 0.186657 22.6982 0 22.2283 0ZM7.15333 20.445H3.545V8.98333H7.15333V20.445ZM5.34667 7.395C4.93736 7.3927 4.53792 7.2692 4.19873 7.04009C3.85955 6.81098 3.59584 6.48653 3.44088 6.10769C3.28591 5.72885 3.24665 5.31259 3.32803 4.91145C3.40941 4.51032 3.6078 4.14228 3.89816 3.85378C4.18851 3.56529 4.55782 3.36927 4.95947 3.29046C5.36112 3.21165 5.77711 3.25359 6.15495 3.41099C6.53279 3.56838 6.85554 3.83417 7.08247 4.17481C7.30939 4.51546 7.43032 4.91569 7.43 5.325C7.43386 5.59903 7.38251 5.87104 7.27901 6.1248C7.17551 6.37857 7.02198 6.6089 6.82757 6.80207C6.63316 6.99523 6.40185 7.14728 6.14742 7.24915C5.893 7.35102 5.62067 7.40062 5.34667 7.395ZM20.4533 20.455H16.8467V14.1933C16.8467 12.3467 16.0617 11.7767 15.0483 11.7767C13.9783 11.7767 12.9283 12.5833 12.9283 14.24V20.455H9.32V8.99167H12.79V10.58H12.8367C13.185 9.875 14.405 8.67 16.2667 8.67C18.28 8.67 20.455 9.865 20.455 13.365L20.4533 20.455Z" fill="#0A66C2"/>
     </svg>
   );
 }
 
-export default function Company() {
+async function getTeamMembers(): Promise<TeamMember[]> {
+  try {
+    // Use centralized API client - handles errors, timeouts, retries automatically
+    const serverApi = createServerApiClient({ revalidate: 60 });
+    const data = await serverApi.get<TeamsResponse>('/teams?populate=Image');
+    console.log(data.data);
+    return data.data || [];
+  } catch {
+    // Error is already logged by api-client, just return empty array
+    return [];
+  }
+}
+
+export default async function Company() {
+  const teamMembers = await getTeamMembers();
+
   return (
-    <div className="max-w-3xl mx-auto px-4 py-14 flex flex-col gap-16">
+    <div className="mx-auto px-20 py-14 flex flex-col gap-16 bg-secondary">
 
       {/* Hero */}
       <div className="text-center flex flex-col gap-4">
@@ -148,40 +85,95 @@ export default function Company() {
       </div>
 
       {/* Our Mission */}
-      <div className="bg-white rounded-2xl overflow-hidden shadow-sm flex flex-col sm:flex-row items-stretch">
-        <div className="flex flex-col justify-center gap-3 px-8 py-8 sm:w-1/2">
-          <h2 className="text-[22px]/[30px] font-bold text-foreground">Our Mission</h2>
-          <p className="text-foreground/60 text-[13px]/[22px]">
+      <div className="bg-white rounded-2xl flex items-stretch">
+        <div className="flex-1 flex flex-col justify-center gap-3 px-8 py-8">
+          <h2 className="text-[42px]/[32px] font-bold text-foreground">Our Mission</h2>
+          <p className="text-foreground text-[16px]/[22px] z-1">
             To empower the next generation of artificial intelligence by providing world-class
             infrastructure, computing power, and scientific expertise — enabling innovators,
             researchers, and enterprises to turn their most ambitious ideas into reality.
           </p>
         </div>
-        <div className="relative sm:w-1/2 min-h-[220px]">
+
+        <div className="relative flex-1 bg-[url(/company/mission.png)] rounded-r-2xl bg-no-repeat bg-cover bg-[center_38%]">
           <Image
-            src="/home/features/pure-metal.webp"
-            alt="Our Mission"
-            fill
-            className="object-cover"
+            src="/sparkle.svg"
+            alt="sparkle"
+            width={94}
+            height={94}
+            className="absolute top-[-16px] right-[10%] animate-[sparklePulse_0.8s_linear_infinite_alternate]"
+            unoptimized
           />
+          <Image
+            src="/sparkle.svg"
+            alt="sparkle"
+            width={94}
+            height={94}
+            className="absolute bottom-[-16px] left-[15%] animate-[sparklePulse_0.8s_linear_infinite_alternate-reverse]"
+            unoptimized
+          />
+          <Image
+            src="/cloud.svg"
+            alt="cloud"
+            width={250}
+            height={120}
+            className="absolute top-[-50px] right-[-2%] mix-blend-screen animate-[cloudXMotion_0.8s_linear_infinite_alternate-reverse] scale-120"
+            unoptimized
+          />
+          <Image
+            src="/cloud.svg"
+            alt="cloud"
+            width={250}
+            height={120}
+            className="absolute bottom-[-12px] left-[-25%] mix-blend-screen animate-[cloudXMotion_0.8s_linear_infinite_alternate] scale-120"
+            unoptimized
+          /> 
         </div>
       </div>
 
       {/* Our Vision */}
-      <div className="bg-white rounded-2xl overflow-hidden shadow-sm flex flex-col sm:flex-row items-stretch">
-        <div className="relative sm:w-1/2 min-h-[220px] order-last sm:order-first">
+      <div className="bg-white rounded-2xl flex items-stretch">
+        <div className="relative flex-1 bg-[url(/company/vision.png)] rounded-l-2xl bg-no-repeat bg-cover bg-[center_60%]">
           <Image
-            src="/home/features/growth-fabric.webp"
-            alt="Our Vision"
-            fill
-            className="object-cover"
+            src="/bowl.png"
+            alt="sparkle"
+            width={94}
+            height={94}
+            className="absolute top-[-50px] right-[50%] animate-[bowlOneMotion_2s_linear_infinite_alternate]"
+            unoptimized
+          />
+          <Image
+            src="/bowl.png"
+            alt="sparkle"
+            width={180}
+            height={180}
+            className="absolute bottom-[-75px] right-[6%] animate-[bowlOneMotion_2s_linear_infinite_alternate-reverse]"
+            unoptimized
+          />
+
+          <Image
+            src="/cloud.svg"
+            alt="cloud"
+            width={250}
+            height={120}
+            className="absolute bottom-[10px] left-[-20%] mix-blend-screen scale-120 animate-[cloudYMotion_0.8s_ease-in-out_infinite_alternate]"
+            unoptimized
+          /> 
+          <Image
+            src="/cloud.svg"
+            alt="cloud"
+            width={250}
+            height={120}
+            className="absolute bottom-[-45%] right-[2%] mix-blend-screen scale-120 animate-[cloudYMotion_0.8s_linear_infinite_alternate-reverse]"
+            unoptimized
           />
         </div>
-        <div className="flex flex-col justify-center gap-3 px-8 py-8 sm:w-1/2">
-          <h2 className="text-[22px]/[30px] font-bold text-foreground">Our Vision</h2>
-          <p className="text-foreground/60 text-[13px]/[22px]">
-            To establish Armenia as a leading hub for AI innovation and data infrastructure —
-            where technology, research, and industry unite to accelerate global progress.
+
+        <div className="flex-1 flex flex-col justify-center gap-3 px-8 py-8">
+          <h2 className="text-[42px]/[32px] font-bold text-foreground">Our Vision</h2>
+          <p className="text-foreground text-[16px]/[22px] z-1">
+          To establish Armenia as a leading hub for AI innovation and data infrastructure —
+          where technology, research, and industry unite to accelerate global progress.
           </p>
         </div>
       </div>
@@ -190,13 +182,20 @@ export default function Company() {
       <div className="flex flex-col gap-6">
         <h2 className="text-[24px]/[32px] font-bold text-foreground text-center">Our Values</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {values.map((v) => (
-            <div key={v.title} className="bg-foreground rounded-2xl p-6 flex flex-col gap-3">
-              <div className="flex items-start justify-between">
-                <h3 className="text-white text-[15px]/[22px] font-bold">{v.title}</h3>
-                <span className="text-primaryGreen shrink-0 ml-2">{v.icon}</span>
+          {values.map((card, index) => (
+            <div
+              key={index}
+              className="bg-foreground rounded-2xl py-4 px-6 flex flex-col gap-3"
+              >
+              <div className="flex justify-end text-primaryGreen">
+                <Image src={card.icon} alt={card.title} width={48} height={48} />
               </div>
-              <p className="text-white/60 text-[12px]/[19px]">{v.description}</p>
+              <h3 className="text-white text-[15px]/[22px] font-bold">
+                {card.title}
+              </h3>
+              <p className="text-white/60 text-[13px]/[20px] font-normal">
+                {card.description}
+              </p>
             </div>
           ))}
         </div>
@@ -206,29 +205,22 @@ export default function Company() {
       <div className="flex flex-col gap-8">
         <h2 className="text-[24px]/[32px] font-bold text-foreground text-center">Meet Our Team</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-8">
-          {team.map((member) => (
-            <div key={member.name + member.role} className="flex flex-col items-center gap-2 text-center">
+          {teamMembers.length && teamMembers.map((member) => (
+            <div key={member.id} className="flex flex-col items-center gap-2 text-center">
               {/* Avatar */}
-              <div className="relative w-20 h-20 rounded-full overflow-hidden bg-foreground/10 flex items-center justify-center shrink-0">
-                {member.photo ? (
-                  <Image src={member.photo} alt={member.name} fill className="object-cover" />
-                ) : (
-                  <span className="text-[18px] font-semibold text-foreground/40">
-                    {member.initials}
-                  </span>
-                )}
+              <div className="flex items-center justify-center shrink-0">
+              <Image src={`https://console.eleveight.ai${member.Image?.url ?? ''}`} alt={member.Fullname} width={180} height={180} style={{ height: 'auto', width: '100%' }}/>
               </div>
               <div>
-                <p className="text-[13px]/[18px] font-semibold text-foreground">{member.name}</p>
-                <p className="text-[11px]/[16px] text-foreground/50 mt-0.5">{member.role}</p>
+                <p className="text-[13px]/[18px] font-semibold text-foreground">{member.Fullname}</p>
+                <p className="text-[11px]/[16px] text-foreground/50 mt-0.5">{member.Position}</p>
               </div>
               {/* LinkedIn */}
               <a
-                href={member.linkedin}
+                href={member.linkedin || ''}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-6 h-6 rounded bg-[#0A66C2] text-white hover:bg-[#004182] transition-colors"
-                aria-label={`${member.name} on LinkedIn`}
+                aria-label={`${member.Fullname} on LinkedIn`}
               >
                 <LinkedInIcon />
               </a>

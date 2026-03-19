@@ -60,7 +60,7 @@ export default function Header() {
             />
           </Link>
           
-          <div className="hidden md-lg:flex w-full justify-center items-center gap-10">
+          <div className="hidden md:flex w-full justify-center items-center gap-10">
             <span className="flex gap-6">
              
               {/* Simple nav links */}
@@ -77,7 +77,7 @@ export default function Header() {
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="hidden sm:flex items-center justify-between gap-4">
+            <div className="hidden md:flex items-center justify-between gap-4">
               <HoverCard openDelay={200} closeDelay={300} open={isLangOpen} onOpenChange={setIsLangOpen}>
                 <HoverCardTrigger asChild>
                   <button className="text-sm font-semibold text-primary flex items-center">
@@ -115,12 +115,12 @@ export default function Header() {
             {/* Mobile Burger Menu Button */}
             <button
               onClick={toggleMobileMenu}
-              className="xl:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5"
+              className="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5"
               aria-label="Toggle menu"
             >
-              <span className={`w-6 h-0.5 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-              <span className={`w-6 h-0.5 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
-              <span className={`w-6 h-0.5 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+              <span className={`w-6 h-0.5 bg-primary transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+              <span className={`w-6 h-0.5 bg-primary transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
+              <span className={`w-6 h-0.5 bg-primary transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
             </button>
           </div>
         </nav>
@@ -129,12 +129,12 @@ export default function Header() {
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen &&(
         <div 
-          className="fixed inset-0 bg-secondary z-[999] xl:hidden"
+          className="fixed inset-0 z-[999] xl:hidden"
           onClick={closeMobileMenu}
         />
       )}
 
-      <div className={`fixed top-0 right-0 h-full w-72 z-[1001] transform transition-transform duration-300 ease-in-out xl:hidden overflow-y-auto ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div className={`fixed top-0 right-0 h-full w-56 z-10 transform transition-transform duration-300 ease-in-out xl:hidden overflow-y-auto ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         {/* Close Button */}
         <button
           onClick={closeMobileMenu}

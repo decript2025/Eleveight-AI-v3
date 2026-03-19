@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import ShareButtons from "./ShareButtons";
 import { createServerApiClient } from "ui/lib/api-client";
 import { sanitizeHtml } from "ui/lib/utils";
+import ArrowRight from "../arrow-right";
 
 const CMS_BASE = "https://console.eleveight.ai";
 
@@ -82,22 +83,6 @@ function formatDate(dateStr: string): string {
   return `${month}/${year}`;
 }
 
-function ArrowRight() {
-  return (
-    <svg width="40" height="12" viewBox="0 0 40 12" fill="none">
-      <line x1="0" y1="6" x2="34" y2="6" stroke="currentColor" strokeWidth="1.5" />
-      <polyline
-        points="29,1 35,6 29,11"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        fill="none"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 export default async function ArticlePage({
   params,
 }: {
@@ -115,7 +100,7 @@ export default async function ArticlePage({
   const imgUrl = getImageUrl(article.main_image);
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-12">
+    <div className="mx-auto px-4 py-12">
       {/* Title */}
       <h1 className="text-[28px]/[36px] sm:text-[32px]/[42px] font-bold text-foreground mb-8">
         {article.title}
@@ -124,8 +109,8 @@ export default async function ArticlePage({
       {/* Meta + intro row */}
       <div className="grid grid-cols-[auto_1fr] gap-8 mb-8">
         {/* Left: published date + location */}
-        <div className="flex flex-col gap-1 text-foreground/50 text-[12px]/[18px] min-w-[100px]">
-          <span className="text-foreground/30 text-[11px] uppercase tracking-wide">Published</span>
+        <div className="flex flex-col gap-1 text-foreground text-[12px]/[18px] min-w-[100px]">
+          <span className="text-foreground/60 text-[11px] uppercase tracking-wide">Published</span>
           <span>{formatDate(article.publish_date)}</span>
           <span>{article.description}</span>
         </div>
@@ -138,7 +123,7 @@ export default async function ArticlePage({
 
       {/* Featured image */}
       {imgUrl && (
-        <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden mb-10">
+        <div className="relative w-full max-h-[500px] aspect-[16/9] rounded-2xl overflow-hidden mb-10">
           <Image
             src={imgUrl}
             alt={article.main_image?.alternativeText ?? article.title}
@@ -151,18 +136,18 @@ export default async function ArticlePage({
 
       {/* Article content */}
       <div
-        className="text-foreground text-[14px]/[24px] [&_p]:mb-4 [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-3 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:mb-3 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:mb-2 [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:mb-4 [&_li]:mb-1 [&_strong]:font-semibold"
+        className="ml-[30%] mr-12 text-foreground text-[14px]/[24px] [&_p]:mb-4 [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-3 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:mb-3 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:mb-2 [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:mb-4 [&_li]:mb-1 [&_strong]:font-semibold"
         dangerouslySetInnerHTML={{ __html: cleanHtml }}
       />
 
       {/* Latest articles */}
       {latest.length > 0 && (
-        <div className="mt-16">
+        <div className="mt-8 pt-14 bg-secondary rounded-2xl px-4 pb-10">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-[22px]/[30px] font-bold text-foreground">Latest articles</h2>
             <Link
               href="/newsroom"
-              className="text-[13px] text-foreground/50 hover:text-foreground transition-colors"
+              className="text-[13px] text-foreground hover:text-foreground/70"
             >
               View all articles
             </Link>

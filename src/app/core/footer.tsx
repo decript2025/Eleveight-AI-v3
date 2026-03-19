@@ -51,7 +51,7 @@ export default function Footer() {
       <div className="grid grid-cols-1 justify-items-center sm:grid-cols-[auto_1fr_auto] sm:justify-items-start gap-8 sm:gap-12">
         {/* Logo and Social Section */}
         <div className=" flex flex-col items-start gap-3">
-          <Image src="/logo.svg" alt="Eleveight" width={153} height={64}/>
+          <Image src="/logo.svg" alt="Eleveight" width={153} height={64} style={{ height: 'auto', width: '100%' }}/>
           <div className="flex gap-3 p-4 self-center">
             <Link 
               href="https://www.linkedin.com/company/eleveight/" 
