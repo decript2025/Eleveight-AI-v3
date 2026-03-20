@@ -3,7 +3,6 @@
  * Handles all API requests with consistent error handling, timeouts, and retries
  */
 
-const API_BASE_URL = 'https://console.eleveight.ai/api';
 const DEFAULT_TIMEOUT = 10000; // 10 seconds
 const DEFAULT_RETRIES = 2;
 
@@ -88,7 +87,7 @@ export async function apiClient<T = unknown>(
   } = options;
 
   // Build full URL
-  const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint}`;
+  const url = endpoint.startsWith('http') ? endpoint : `${process.env.NEXT_PUBLIC_BASE_API_URL}${endpoint}`;
 
   // Set default headers
   const headers = new Headers(fetchOptions.headers);

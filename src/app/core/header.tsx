@@ -23,11 +23,7 @@ export default function Header() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const [isPlatformOpen, setIsPlatformOpen] = useState(false);
-  const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
-  const [isMobilePlatformOpen, setIsMobilePlatformOpen] = useState(false);
-  const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false);
 
   const navLinks = [
     { href: '/company', label: 'Company' },
@@ -41,7 +37,7 @@ export default function Header() {
 
   const [selectedLang, setSelectedLang] = useState<'eng' | 'arm'>('eng');
   const languages = {
-    eng: { code: 'eng', display: 'ENG' },
+    eng: { code: 'eng', display: 'Eng' },
     arm: { code: 'arm', display: 'Հայ' }
   };
   const otherLang = selectedLang === 'eng' ? languages.arm : languages.eng;
@@ -129,7 +125,7 @@ export default function Header() {
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen &&(
         <div 
-          className="fixed inset-0 z-[999] xl:hidden"
+          className="fixed inset-0 z-10 xl:hidden"
           onClick={closeMobileMenu}
         />
       )}
@@ -156,40 +152,34 @@ export default function Header() {
 
         <div className="flex flex-col text-primary bg-foreground pt-20 pb-8">
           {/* Simple nav links */}
-          {[
-            { href: '/pricing', label: 'Pricing' },
-            { href: '/developers', label: 'Developers' },
-            { href: '/resources', label: 'Resources' },
-            { href: '/company', label: 'Company' },
-          ].map((item) => (
+          {navLinks.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               onClick={closeMobileMenu}
-              className={`px-8 py-4 text-sm font-semibold hover:text-primary transition-colors ${isActive(item.href) ? 'text-primary' : ''}`}
+              className={`px-8 py-4 text-sm font-semibold hover:text-primary transition-colors ${isActive(item.href) ? 'text-primaryGreen' : ''}  `}
             >
               {item.label}
             </Link>
           ))}
           <Link
-                href="/login"
-                onClick={closeMobileMenu}
-                className={`px-8 py-4 text-sm font-semibold hover:text-primary transition-colors}`}              >
-                Log in
-              </Link>
+            href="/login"
+            className={`px-8 py-4 text-sm font-semibold hover:text-primary transition-colors}`}              >
+            Log in
+          </Link>
 
-              <div className="flex justify-around mt-1">
-              {(['eng', 'arm'] as const).map((lang) => (
-                <Button
-                  key={lang}
-                  disabled={selectedLang === lang}
-                  onClick={() => setSelectedLang(lang)}
-                  className={` ${ selectedLang === lang && 'text-primary/90 cursor-default' }`}
-                >
-                  {languages[lang].display}
-                </Button>
-              ))}
-            </div>
+          <div className="flex justify-around mt-1">
+            {(['eng', 'arm'] as const).map((lang) => (
+              <Button
+                key={lang}
+                disabled={selectedLang === lang}
+                onClick={() => setSelectedLang(lang)}
+                className={` ${ selectedLang === lang && 'text-primary/90 cursor-default' }`}
+              >
+                {languages[lang].display}
+              </Button>
+            ))}
+          </div>
         </div>
       </div>
     </>

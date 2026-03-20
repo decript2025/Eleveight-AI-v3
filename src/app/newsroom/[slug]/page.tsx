@@ -6,8 +6,6 @@ import { createServerApiClient } from "ui/lib/api-client";
 import { sanitizeHtml } from "ui/lib/utils";
 import ArrowRight from "../arrow-right";
 
-const CMS_BASE = "https://console.eleveight.ai";
-
 interface MainImage {
   url: string;
   alternativeText: string | null;
@@ -47,8 +45,7 @@ interface ListApiResponse {
 async function getArticle(slug: string): Promise<ArticleData | null> {
   try {
     const serverApi = createServerApiClient({ revalidate: 60 });
-    const data = await serverApi.get<ApiResponse>(`/articles/slug/${slug}?populate=*`);
-    console.log(data.data);
+    const data = await serverApi.get<ApiResponse>(`/api/articles/slug/${slug}?populate=*`);
     return data.data;
   } catch {
     return null;
@@ -58,22 +55,11 @@ async function getArticle(slug: string): Promise<ArticleData | null> {
 async function getLatestArticles(excludeSlug: string): Promise<ArticleListItem[]> {
   try {
     const serverApi = createServerApiClient({ revalidate: 60 });
-    const data = await serverApi.get<ListApiResponse>(`/articles?populate=*`);
+    const data = await serverApi.get<ListApiResponse>(`/api/articles?populate=*`);
     return data.data.filter((a) => a.slug !== excludeSlug).slice(0, 3);
   } catch {
     return [];
   }
-}
-
-function getImageUrl(image?: MainImage): string | null {
-  if (!image) return null;
-  const path =
-    image.formats?.large?.url ??
-    image.formats?.medium?.url ??
-    image.formats?.small?.url ??
-    image.url;
-  if (!path) return null;
-  return path.startsWith("http") ? path : `${CMS_BASE}${path}`;
 }
 
 function formatDate(dateStr: string): string {
@@ -97,7 +83,7 @@ export default async function ArticlePage({
   if (!article) notFound();
 
   const cleanHtml = sanitizeHtml(article.content);
-  const imgUrl = getImageUrl(article.main_image);
+  const imgUrl = `${process.env.NEXT_PUBLIC_BASE_API_URL}${article.main_image?.url}`;
 
   return (
     <div className="mx-auto px-4 py-12">
@@ -155,7 +141,7 @@ export default async function ArticlePage({
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {latest.map((item) => {
-              const thumbUrl = getImageUrl(item.main_image);
+              const thumbUrl = `${process.env.NEXT_PUBLIC_BASE_API_URL}${item.main_image?.url}`;
               return (
                 <div key={item.id} className="flex flex-col gap-2">
                   <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-foreground/10">

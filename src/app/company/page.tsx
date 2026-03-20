@@ -56,8 +56,7 @@ async function getTeamMembers(): Promise<TeamMember[]> {
   try {
     // Use centralized API client - handles errors, timeouts, retries automatically
     const serverApi = createServerApiClient({ revalidate: 60 });
-    const data = await serverApi.get<TeamsResponse>('/teams?populate=Image');
-    console.log(data.data);
+    const data = await serverApi.get<TeamsResponse>('/api/teams?populate=Image');
     return data.data || [];
   } catch {
     // Error is already logged by api-client, just return empty array
@@ -209,7 +208,7 @@ export default async function Company() {
             <div key={member.id} className="flex flex-col items-center gap-2 text-center">
               {/* Avatar */}
               <div className="flex items-center justify-center shrink-0">
-              <Image src={`https://console.eleveight.ai${member.Image?.url ?? ''}`} alt={member.Fullname} width={180} height={180} style={{ height: 'auto', width: '100%' }}/>
+              <Image src={`${process.env.NEXT_PUBLIC_BASE_API_URL}${member.Image?.url ?? ''}`} alt={member.Fullname} width={180} height={180} style={{ height: 'auto', width: '100%' }}/>
               </div>
               <div>
                 <p className="text-[13px]/[18px] font-semibold text-foreground">{member.Fullname}</p>

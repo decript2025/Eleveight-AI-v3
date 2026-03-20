@@ -1,10 +1,10 @@
+import { createServerApiClient } from "ui/lib/api-client";
 import { ArticleGrid } from "./article-grid";
 
 export default async function Newsroom() {
-  const res = await fetch("https://console.eleveight.ai/api/articles?populate=*", {
-    cache: "no-store",
-  });
-  const json = await res.json();
 
-  return <ArticleGrid articles={json.data} />;
+  const serverApi = createServerApiClient({ revalidate: 60 });
+  const data = await serverApi.get<any>(`/api/articles?populate=*`);
+
+  return <ArticleGrid articles={data.data} />;
 }
