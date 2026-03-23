@@ -14,6 +14,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  output: 'export', // Enables static export
+  basePath: '/eleveight-ai-v3',
 };
  
 const withNextIntl = createNextIntlPlugin();
