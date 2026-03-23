@@ -2,14 +2,20 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import type { Locale } from '../../i18n/config';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from 'ui/components/ui/hover-card';
 import { Button } from 'ui/components/ui/button';
 import { ChevronDown } from 'ui/lib/chevronDown';
-// import { GetStarted } from '../home/get-started';
+import { getCookie, setCookie } from 'ui/lib/utils';
+import {useTranslations} from 'next-intl';
+
 export default function Header() {
+
+  const t = useTranslations();
   const pathname = usePathname() || '';
+  const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -35,12 +41,26 @@ export default function Header() {
     setIsMobileMenuOpen(false);
   };
 
-  const [selectedLang, setSelectedLang] = useState<'eng' | 'arm'>('eng');
-  const languages = {
-    eng: { code: 'eng', display: 'Eng' },
-    arm: { code: 'arm', display: 'Հայ' }
+
+  const [selectedLang, setSelectedLang] = useState<Locale>('en');
+
+  // Sync initial value from cookie after mount
+  useEffect(() => {
+    getCookie('NEXT_LOCALE', 'en').then((val) => setSelectedLang(val as Locale));
+  }, []);
+
+  function switchLanguage(locale: Locale) {
+    setSelectedLang(locale);
+    setCookie('NEXT_LOCALE', locale);
+    setIsLangOpen(false);
+    router.refresh(); // re-render all server components with new locale
+  }
+
+  const languages: Record<Locale, { display: string }> = {
+    en: { display: 'Eng' },
+    hy: { display: 'Հայ' },
   };
-  const otherLang = selectedLang === 'eng' ? languages.arm : languages.eng;
+  const otherLang: Locale = selectedLang === 'en' ? 'hy' : 'en';
 
   return (
     <>
@@ -55,7 +75,7 @@ export default function Header() {
               priority
             />
           </Link>
-          
+
           <div className="hidden md:flex w-full justify-center items-center gap-10">
             <span className="flex gap-6">
              
@@ -77,7 +97,7 @@ export default function Header() {
               <HoverCard openDelay={200} closeDelay={300} open={isLangOpen} onOpenChange={setIsLangOpen}>
                 <HoverCardTrigger asChild>
                   <button className="text-sm font-semibold text-primary flex items-center">
-                    {languages[selectedLang].display}
+                    {isMounted ? languages[selectedLang].display : languages['en'].display}
                     <ChevronDown isOpen={isLangOpen} />
                   </button>
                 </HoverCardTrigger>
@@ -87,13 +107,10 @@ export default function Header() {
                   sideOffset={15}
                 >
                   <button
-                    onClick={() => {
-                      setSelectedLang(otherLang.code as 'eng' | 'arm');
-                      setIsLangOpen(false);
-                    }}
+                    onClick={() => switchLanguage(otherLang)}
                     className="w-full text-left p-2 text-primary rounded-md text-sm font-semibold"
                   >
-                    {otherLang.display}
+                    {languages[otherLang].display}
                   </button>
                 </HoverCardContent>
               </HoverCard>
@@ -103,7 +120,7 @@ export default function Header() {
                 asChild
               >
                 <Link href="/contacts">
-                  Get Started
+                  {t('GET_STARTED')}
                 </Link>
               </Button>
             </div>
@@ -169,12 +186,12 @@ export default function Header() {
           </Link>
 
           <div className="flex justify-around mt-1">
-            {(['eng', 'arm'] as const).map((lang) => (
+            {(['en', 'hy'] as const).map((lang) => (
               <Button
                 key={lang}
                 disabled={selectedLang === lang}
-                onClick={() => setSelectedLang(lang)}
-                className={` ${ selectedLang === lang && 'text-primary/90 cursor-default' }`}
+                onClick={() => switchLanguage(lang)}
+                className={`${selectedLang === lang && 'text-primary/90 cursor-default'}`}
               >
                 {languages[lang].display}
               </Button>

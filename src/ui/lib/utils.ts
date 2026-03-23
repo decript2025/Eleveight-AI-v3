@@ -5,6 +5,31 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
+
+/**
+ * Universal cookie reader.
+ * - Server (SSR): dynamically imports `next/headers` so it never enters the client bundle.
+ * - Client: reads from `document.cookie`.
+ */
+export async function getCookie(key: string, fallback = ''): Promise<string> {
+  if (typeof window === 'undefined') {
+    // Dynamic import keeps next/headers out of the client bundle
+    const { cookies } = await import('next/headers');
+    const store = await cookies();
+    return store.get(key)?.value ?? fallback;
+  }
+  const match = document.cookie.match(new RegExp(`(?:^|; )${key}=([^;]*)`));
+  return match ? decodeURIComponent(match[1]) : fallback;
+}
+
+/**
+ * Client-only cookie writer.
+ */
+export function setCookie(key: string, value: string): void {
+  document.cookie = `${key}=${value}; path=/; max-age=${COOKIE_MAX_AGE}; SameSite=Lax`;
+}
+
 export function sanitizeHtml(dirty: string): string {
   // Use require for better SSR compatibility
   // eslint-disable-next-line @typescript-eslint/no-require-imports

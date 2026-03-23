@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from 'next-intl/plugin';
 
 const apiUrl = process.env.NEXT_PUBLIC_BASE_API_URL || '';
 const apiUrlHostname = new URL(apiUrl).hostname;
@@ -14,5 +15,6 @@ const nextConfig: NextConfig = {
     ],
   },
 };
-
-export default nextConfig;
+ 
+const withNextIntl = createNextIntlPlugin();
+export default withNextIntl(nextConfig);

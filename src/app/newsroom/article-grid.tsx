@@ -7,7 +7,7 @@ import ArrowRight from "./arrow-right";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "ui/components/ui/pagination";
 import { useSearchParams } from "next/navigation";
 
-const PAGE_SIZE = 2;
+const PAGE_SIZE = 6;
 
 interface Article {
   id: number;

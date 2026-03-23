@@ -4,6 +4,8 @@ import Script from "next/script";
 import "./globals.css";
 import Header from "./core/header";
 import Footer from "./core/footer";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 
 const noto_sans = Noto_Sans({
   variable: '--font-noto-sans',
@@ -44,13 +46,16 @@ export const viewport: Viewport = {
   initialScale: 1.0,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en" data-scroll-behavior="smooth">
+    <html lang={locale} data-scroll-behavior="smooth">
       <head>
         <link
           rel="icon"
@@ -107,13 +112,15 @@ export default function RootLayout({
         {/* End Google Tag Manager (noscript) */}
         
         <div className="flex flex-col min-h-screen">
-          <Header />
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <Header />
 
-          <main className="grow bg-primary mt-[65px] px-20">
-            {children}
-          </main>
+            <main className="grow bg-primary mt-[65px] px-20">
+              {children}
+            </main>
 
-          <Footer />
+            <Footer />
+          </NextIntlClientProvider>
         </div>
       </body>
     </html>
