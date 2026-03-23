@@ -1,5 +1,7 @@
 import { createServerApiClient } from "ui/lib/api-client";
 
+export const dynamic = "force-static";
+
 async function getArticles() {
   const serverApi = createServerApiClient({ revalidate: 60 });
   const articles = await serverApi.get<any>(`/api/articles?fields=slug`);

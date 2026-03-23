@@ -4,6 +4,8 @@ import { Hero } from "./home/hero";
 import { Partners } from "./home/partners";
 import { Purpose } from "./home/purpose";
 
+export const dynamic = 'force-static';
+
 export default function Home() {
   return (
     <div className="bg-primary">

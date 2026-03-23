@@ -64,6 +64,8 @@ async function getTeamMembers(): Promise<TeamMember[]> {
   }
 }
 
+export const dynamic = 'force-static';
+
 export default async function Company() {
   const teamMembers = await getTeamMembers();
 

@@ -1,21 +1,19 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from 'next-intl/plugin';
 
-const apiUrl = process.env.NEXT_PUBLIC_BASE_API_URL || '';
-const apiUrlHostname = new URL(apiUrl).hostname;
-
 const nextConfig: NextConfig = {
+  output: 'export',
+  basePath: '/eleveight-ai-v3',
+  cacheComponents: true,
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: apiUrlHostname,
+        hostname: 'stage-console.eleveight.ai',
         pathname: '/**',
       },
     ],
-  },
-  output: 'export', // Enables static export
-  basePath: '/eleveight-ai-v3',
+  }
 };
  
 const withNextIntl = createNextIntlPlugin();

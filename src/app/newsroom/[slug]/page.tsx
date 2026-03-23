@@ -5,6 +5,7 @@ import ShareButtons from "./ShareButtons";
 import { createServerApiClient } from "ui/lib/api-client";
 import { sanitizeHtml } from "ui/lib/utils";
 import ArrowRight from "../arrow-right";
+import { getArticles } from "ui/lib/api";
 
 interface MainImage {
   url: string;
@@ -41,6 +42,16 @@ interface ApiResponse {
 interface ListApiResponse {
   data: ArticleListItem[];
 }
+
+export async function generateStaticParams() {
+  const posts = await getArticles();
+  console.log(posts)
+  return posts.map((post: any) => ({
+    slug: post.slug,
+  }));
+}
+
+export const dynamic = 'force-static';
 
 async function getArticle(slug: string): Promise<ArticleData | null> {
   try {

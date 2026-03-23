@@ -1,6 +1,8 @@
 import { createServerApiClient } from "ui/lib/api-client";
 import { ArticleGrid } from "./article-grid";
 
+export const dynamic = 'force-static';
+
 export default async function Newsroom() {
 
   const serverApi = createServerApiClient({ revalidate: 60 });

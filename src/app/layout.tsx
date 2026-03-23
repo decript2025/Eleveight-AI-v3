@@ -7,6 +7,9 @@ import Footer from "./core/footer";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 
+export const dynamic = 'force-static';
+
+
 const noto_sans = Noto_Sans({
   variable: '--font-noto-sans',
   subsets: ["latin"],
