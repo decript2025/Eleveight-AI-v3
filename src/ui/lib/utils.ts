@@ -17,8 +17,10 @@ export async function getCookie(key: string, fallback = ''): Promise<string> {
     // Dynamic import keeps next/headers out of the client bundle
     const { cookies } = await import('next/headers');
     const store = await cookies();
+
+    console.log('store11', store);
     return store.get(key)?.value ?? fallback;
-  }
+  } 
   const match = document.cookie.match(new RegExp(`(?:^|; )${key}=([^;]*)`));
   return match ? decodeURIComponent(match[1]) : fallback;
 }

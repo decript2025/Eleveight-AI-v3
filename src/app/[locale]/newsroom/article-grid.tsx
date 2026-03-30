@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ArrowRight from "./arrow-right";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "ui/components/ui/pagination";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const PAGE_SIZE = 6;
 
@@ -25,6 +25,7 @@ interface Article {
 }
 
 export function ArticleGrid({ articles }: { articles: Article[] }) {
+  const t = useTranslations();
   const page = +(useSearchParams().get('page') || 1);
 
   const pageCount = Math.ceil(articles.length / PAGE_SIZE);
@@ -35,7 +36,7 @@ export function ArticleGrid({ articles }: { articles: Article[] }) {
       {/* Header */}
       <div className="text-center mb-10">
         <h1 className="text-[28px]/[36px] sm:text-[32px]/[42px] font-bold text-foreground mb-3">
-          Latest articles
+          {t('NEWS_TITLE')}
         </h1>
         <p className="text-foreground/60 text-[15px]/[24px] max-w-xl mx-auto">
           Stay updated with the latest developments, announcements, and insights from Eleveight AI.

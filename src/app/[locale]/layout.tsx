@@ -4,8 +4,10 @@ import Script from "next/script";
 import "./globals.css";
 import Header from "./core/header";
 import Footer from "./core/footer";
-import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages } from "next-intl/server";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { routing } from "../../i18n/routing";
+import { notFound } from "next/navigation";
+import { setRequestLocale } from "next-intl/server";
 
 export const dynamic = 'force-static';
 
@@ -49,13 +51,24 @@ export const viewport: Viewport = {
   initialScale: 1.0,
 };
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({locale}));
+}
+
 export default async function RootLayout({
   children,
+  params
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
-  const locale = await getLocale();
-  const messages = await getMessages();
+  const { locale } = await params;
+
+  if(!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
+  setRequestLocale(locale);
 
   return (
     <html lang={locale} data-scroll-behavior="smooth">
@@ -115,7 +128,7 @@ export default async function RootLayout({
         {/* End Google Tag Manager (noscript) */}
         
         <div className="flex flex-col min-h-screen">
-          <NextIntlClientProvider locale={locale} messages={messages}>
+          <NextIntlClientProvider locale={locale}>
             <Header />
 
             <main className="grow bg-primary mt-[65px] px-20">

@@ -2,20 +2,18 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import type { Locale } from '../../i18n/config';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from 'ui/components/ui/hover-card';
 import { Button } from 'ui/components/ui/button';
-import { ChevronDown } from 'ui/lib/chevronDown';
-import { getCookie, setCookie } from 'ui/lib/utils';
-import {useTranslations} from 'next-intl';
+import { useTranslations} from 'next-intl';
+import LocaleSwitcher from './locale-switcher';
 
 export default function Header() {
 
   const t = useTranslations();
+  console.log('t', t('GET_STARTED'));
   const pathname = usePathname() || '';
-  const router = useRouter();
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -29,38 +27,18 @@ export default function Header() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const [isLangOpen, setIsLangOpen] = useState(false);
-
   const navLinks = [
-    { href: '/company', label: 'Company' },
-    { href: '/newsroom', label: 'Newsroom' },
-    { href: '/contacts', label: 'Contact Us' },
+    { href: '/company', label: 'HEADER_COMPANY' },
+    { href: '/newsroom', label: 'HEADER_NEWSROOM' },
+    { href: '/contacts', label: 'HEADER_CONTACT' },
   ];
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };
 
-
-  const [selectedLang, setSelectedLang] = useState<Locale>('en');
-
-  // Sync initial value from cookie after mount
-  useEffect(() => {
-    getCookie('NEXT_LOCALE', 'en').then((val) => setSelectedLang(val as Locale));
-  }, []);
-
-  function switchLanguage(locale: Locale) {
-    setSelectedLang(locale);
-    setCookie('NEXT_LOCALE', locale);
-    setIsLangOpen(false);
-    router.refresh(); // re-render all server components with new locale
-  }
-
-  const languages: Record<Locale, { display: string }> = {
-    en: { display: 'Eng' },
-    hy: { display: 'Հայ' },
-  };
-  const otherLang: Locale = selectedLang === 'en' ? 'hy' : 'en';
+  const params = useParams();
+  const locale = params.locale;
 
   return (
     <>
@@ -83,10 +61,11 @@ export default function Header() {
                 {navLinks.map((item) => 
                 <Link
                   key={item.href}
+                  locale={locale as string}
                   href={item.href}
-                  className={`text-sm font-semibold text-primary hover:text-primaryGreen ${isActive(item.href) ? 'text-primaryGreen' : ''}`}
+                  className={`text-sm font-semibold text-primary hover:text-primaryGreen ${isActive(`/${locale}${item.href}`) ? 'text-primaryGreen' : ''}`}
                 >
-                  {item.label}
+                  {t(item.label)}
                 </Link>
               )}
             </span>
@@ -94,26 +73,8 @@ export default function Header() {
 
           <div className="flex items-center gap-4">
             <div className="hidden md:flex items-center justify-between gap-4">
-              <HoverCard openDelay={200} closeDelay={300} open={isLangOpen} onOpenChange={setIsLangOpen}>
-                <HoverCardTrigger asChild>
-                  <button className="text-sm font-semibold text-primary flex items-center">
-                    {isMounted ? languages[selectedLang].display : languages['en'].display}
-                    <ChevronDown isOpen={isLangOpen} />
-                  </button>
-                </HoverCardTrigger>
-                <HoverCardContent 
-                  className="w-20 h-16 bg-foreground rounded-br-[16px] rounded-bl-[16px] p-4" 
-                  align="center"
-                  sideOffset={15}
-                >
-                  <button
-                    onClick={() => switchLanguage(otherLang)}
-                    className="w-full text-left p-2 text-primary rounded-md text-sm font-semibold"
-                  >
-                    {languages[otherLang].display}
-                  </button>
-                </HoverCardContent>
-              </HoverCard>
+              <LocaleSwitcher />
+
               <Button
                 variant="default"
                 size="default"
@@ -142,7 +103,7 @@ export default function Header() {
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen &&(
         <div 
-          className="fixed inset-0 z-10 xl:hidden"
+          className="fixed inset-0 z-10 lg:hidden"
           onClick={closeMobileMenu}
         />
       )}
@@ -172,11 +133,12 @@ export default function Header() {
           {navLinks.map((item) => (
             <Link
               key={item.href}
+              locale={locale as string}
               href={item.href}
               onClick={closeMobileMenu}
-              className={`px-8 py-4 text-sm font-semibold hover:text-primary transition-colors ${isActive(item.href) ? 'text-primaryGreen' : ''}  `}
+              className={`px-8 py-4 text-sm font-semibold hover:text-primary transition-colors ${isActive(`/${locale}${item.href}`) ? 'text-primaryGreen' : ''}  `}
             >
-              {item.label}
+              {t(item.label)}
             </Link>
           ))}
           <Link
@@ -185,18 +147,7 @@ export default function Header() {
             Log in
           </Link>
 
-          <div className="flex justify-around mt-1">
-            {(['en', 'hy'] as const).map((lang) => (
-              <Button
-                key={lang}
-                disabled={selectedLang === lang}
-                onClick={() => switchLanguage(lang)}
-                className={`${selectedLang === lang && 'text-primary/90 cursor-default'}`}
-              >
-                {languages[lang].display}
-              </Button>
-            ))}
-          </div>
+          <LocaleSwitcher />
         </div>
       </div>
     </>

@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { createServerApiClient } from "ui/lib/api-client";
 
@@ -69,13 +70,15 @@ export const dynamic = 'force-static';
 export default async function Company() {
   const teamMembers = await getTeamMembers();
 
+  const t = await getTranslations();
+
   return (
     <div className="mx-auto px-20 py-14 flex flex-col gap-16 bg-secondary">
 
       {/* Hero */}
       <div className="text-center flex flex-col gap-4">
         <h1 className="text-[28px]/[36px] sm:text-[34px]/[44px] font-bold text-foreground">
-          Empowering AI infrastructure &amp;<br />data innovation
+        {t('COMPANY_TITLE')}
         </h1>
         <p className="text-foreground/60 text-[14px]/[24px] max-w-xl mx-auto">
           Eleveight AI is dedicated data cluster under DIGI Data — the largest colocated data
