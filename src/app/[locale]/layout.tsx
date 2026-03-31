@@ -2,12 +2,12 @@ import type { Metadata, Viewport } from "next";
 import { Noto_Sans } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import Header from "./core/header";
-import Footer from "./core/footer";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { routing } from "../../i18n/routing";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
+import Header from "app/core/header";
+import Footer from "app/core/footer";
 
 export const dynamic = 'force-static';
 

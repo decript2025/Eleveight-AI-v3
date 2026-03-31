@@ -1,12 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
-import { useParams, usePathname } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from 'ui/components/ui/button';
 import { useTranslations} from 'next-intl';
 import LocaleSwitcher from './locale-switcher';
+import { Link, usePathname } from '../../i18n/navigation';
 
 export default function Header() {
 
@@ -15,13 +14,8 @@ export default function Header() {
   const pathname = usePathname() || '';
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  const isActive = (href: string) => isMounted && pathname.startsWith(href);
+  const isActive = (href: string) => pathname.startsWith(href);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -36,9 +30,6 @@ export default function Header() {
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };
-
-  const params = useParams();
-  const locale = params.locale;
 
   return (
     <>
@@ -61,9 +52,8 @@ export default function Header() {
                 {navLinks.map((item) => 
                 <Link
                   key={item.href}
-                  locale={locale as string}
                   href={item.href}
-                  className={`text-sm font-semibold text-primary hover:text-primaryGreen ${isActive(`/${locale}${item.href}`) ? 'text-primaryGreen' : ''}`}
+                  className={`text-sm font-semibold text-primary hover:text-primaryGreen ${isActive(item.href) ? 'text-primaryGreen' : ''}`}
                 >
                   {t(item.label)}
                 </Link>
@@ -133,10 +123,9 @@ export default function Header() {
           {navLinks.map((item) => (
             <Link
               key={item.href}
-              locale={locale as string}
               href={item.href}
               onClick={closeMobileMenu}
-              className={`px-8 py-4 text-sm font-semibold hover:text-primary transition-colors ${isActive(`/${locale}${item.href}`) ? 'text-primaryGreen' : ''}  `}
+              className={`px-8 py-4 text-sm font-semibold hover:text-primary transition-colors ${isActive(item.href) ? 'text-primaryGreen' : ''}  `}
             >
               {t(item.label)}
             </Link>

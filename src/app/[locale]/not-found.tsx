@@ -1,6 +1,4 @@
-import Link from "next/link";
-
-export const dynamic = 'force-static';
+import { Link } from "../../i18n/navigation";
 
 export default function NotFound() {
   return (

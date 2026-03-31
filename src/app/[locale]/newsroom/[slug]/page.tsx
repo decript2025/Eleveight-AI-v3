@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "../../../../i18n/navigation";
 import { notFound } from "next/navigation";
 import ShareButtons from "./ShareButtons";
 import { createServerApiClient } from "ui/lib/api-client";
@@ -45,7 +45,6 @@ interface ListApiResponse {
 
 export async function generateStaticParams() {
   const posts = await getArticles();
-  console.log(posts)
   return posts.map((post: any) => ({
     slug: post.slug,
   }));

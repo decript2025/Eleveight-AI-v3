@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Locale } from 'next-intl';
 import { Button } from 'ui/components/ui/button';
 import { useLocale } from 'next-intl';
-import { usePathname, useRouter } from '../../../i18n/navigation';
+import { usePathname, useRouter } from '../../i18n/navigation';
 
 export default function LocaleSwitcher() {
   const pathname = usePathname();
